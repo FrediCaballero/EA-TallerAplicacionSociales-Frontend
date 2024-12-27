@@ -7,7 +7,7 @@ const TaskList = ({ tasks, onTaskUpdate }) => {
   const toggleStatus = async (taskId, currentStatus, e) => {
     e.stopPropagation();
     try {
-      const response = await fetch(`https://backend-tareas-ub9h.onrender.com/tasks/${taskId}`, {
+      const response = await fetch(`https://backend-api-gateway-64uq.onrender.com/tasks/${taskId}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -22,6 +22,24 @@ const TaskList = ({ tasks, onTaskUpdate }) => {
       onTaskUpdate();
     } catch (error) {
       console.error('Error updating task status:', error);
+    }
+  };
+
+  const deleteTask = async (taskId, e) => {
+    e.stopPropagation();
+    try {
+      const response = await fetch(`https://backend-api-gateway-64uq.onrender.com/tasks/${taskId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete task');
+      }
+
+      // Call onTaskUpdate to refresh the task list after deletion
+      onTaskUpdate();
+    } catch (error) {
+      console.error('Error deleting task:', error);
     }
   };
 
@@ -52,6 +70,12 @@ const TaskList = ({ tasks, onTaskUpdate }) => {
                 }`}
               >
                 {task.status === 'completed' ? 'Mark Pending' : 'Mark Complete'}
+              </button>
+              <button
+                onClick={(e) => deleteTask(task.id, e)}
+                className="px-3 py-1 mt-2 rounded text-white bg-red-400 hover:bg-red-500"
+              >
+                Delete Task
               </button>
             </div>
           </div>

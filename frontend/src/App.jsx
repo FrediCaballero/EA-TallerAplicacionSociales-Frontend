@@ -13,9 +13,10 @@ const App = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await fetch('https://backend-tareas-ub9h.onrender.com/tasks');
+      const response = await fetch('https://backend-api-gateway-64uq.onrender.com/tasks');
       const data = await response.json();
-      setTasks(data);
+      // Filtrar solo las tareas visibles
+      setTasks(data.filter(task => task.visible !== false));
     } catch (error) {
       console.error('Error fetching tasks:', error);
     }

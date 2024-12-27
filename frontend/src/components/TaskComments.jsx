@@ -10,7 +10,7 @@ const TaskComments = ({ taskId }) => {
 
   const fetchComments = async () => {
     try {
-      const response = await fetch(`https://backend-tareas-ub9h.onrender.com/tasks/${taskId}/comments`);
+      const response = await fetch(`https://backend-api-gateway-64uq.onrender.com/tasks/${taskId}/comments`);
       if (response.ok) {
         const data = await response.json();
         setComments(data);
@@ -23,7 +23,7 @@ const TaskComments = ({ taskId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`https://backend-tareas-ub9h.onrender.com/tasks/${taskId}/comments`, {
+      const response = await fetch(`https://backend-api-gateway-64uq.onrender.com/tasks/${taskId}/comments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newComment),

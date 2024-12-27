@@ -10,7 +10,7 @@ const TaskForm = ({ onClose, onTaskCreated }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://backend-tareas-ub9h.onrender.com/tasks', {
+      const response = await fetch('https://backend-api-gateway-64uq.onrender.com/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
